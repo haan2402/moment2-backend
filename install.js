@@ -21,3 +21,19 @@ client.connect((err) => {
     }
 });
 
+//skapar tabell för workexperience
+client.query(`
+    DROP TABLE IF EXISTS workexperience;
+    CREATE TABLE workexperience (
+    id SERIAL PRIMARY KEY,
+    companyname VARCHAR(200) NOT NULL,
+    jobtitle VARCHAR(200) NOT NULL,
+    location VARCHAR(200) NOT NULL,
+    startdate DATE NOT NULL,
+    enddate DATE NOT NULL,
+    description TEXT NOT NULL
+    );`, (error, results) => {
+        if (error) throw error;
+        console.log('Tabellen är skapad')
+    }
+);
