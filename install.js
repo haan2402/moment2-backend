@@ -2,7 +2,7 @@ const { Client } = require("pg");
 require("dotenv").config();
 
 //ansluta till databas
-const client = new Client({
+const dbClient = new Client({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USERNAME,
@@ -13,7 +13,7 @@ const client = new Client({
     },
 });
 
-client.connect((err) => {
+dbClient.connect((err) => {
     if(err) {
         console.log("Fel vid anslutning:" + err);
     } else {
@@ -22,7 +22,7 @@ client.connect((err) => {
 });
 
 //skapar tabell för workexperience
-client.query(`
+dbClient.query(`
     DROP TABLE IF EXISTS workexperience;
     CREATE TABLE workexperience (
     id SERIAL PRIMARY KEY,
@@ -37,3 +37,8 @@ client.query(`
         console.log('Tabellen är skapad')
     }
 );
+
+//lägger in data
+
+
+module.exports = dbClient;
