@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000; //port
 app.use(cors()); //för att aktivera cors
 app.use(express.json()); //tolkar JSON
 
-//skapar routing
+//skapar routing med get
 app.get("/workexperience", (req, res) => {
     dbClient.query('SELECT * FROM workexperience', (error, results) => {
 
@@ -22,23 +22,23 @@ app.get("/workexperience", (req, res) => {
     });
 });
 
-//Lägger till ny erfarenhet
+//Lägger till ny erfarenhet med post
 app.post("/workexperience", (req, res) => {
     const { companyname, jobtitle, location, startdate, enddate, description } = req.body;
     if(!companyname || !jobtitle || !location || !startdate || !enddate || !description) {
         return res.status(400).json({message: "All fields are required to fill in!"});
     }
-    dbClient.query('INSERT INTO workexperience (companyname, jobtitle, location, startdate, enddate, description) VALUES ($1, $2, $3, $4, $5, $6)', 
+    dbClient.query('INSERT INTO workexperience (companyname, jobtitle, location, startdate, enddate, description) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id', 
         [companyname, jobtitle, location, startdate, enddate, description], (error, results) => {
             if(error) {
                 res.status(500).json({message: "Error, try again later"});
             } else {
-                res.status(201).json({message: "Workexperience added!"});
+                res.status(201).json({message: "Workexperience added!", id:results.rows[0].id});
             }
         });
 });
 
-//Uppdaterar erfarenhet efter ID
+//Uppdaterar erfarenhet efter ID med put
 app.put("/workexperience/:id", (req, res) => {
     const experienceId = req.params.id;
     const { companyname, jobtitle, location, startdate, enddate, description } = req.body;
@@ -50,12 +50,12 @@ app.put("/workexperience/:id", (req, res) => {
             if(error) {
                 res.status(500).json({message: "Error, try again later"});
             } else {
-                res.status(201).json({message: "Workexperience updated!"});
+                res.status(200).json({message: "Workexperience updated!"});
             }
     });
 });
 
-//tar bort en erfarenhet
+//tar bort en erfarenhet med hjälp av delete
 app.delete("/workexperience/:id", (req, res) => {
     const experienceId = req.params.id;
     
@@ -63,7 +63,7 @@ app.delete("/workexperience/:id", (req, res) => {
         if(error) {
             res.status(500).json({message: "Error, try again later"});
         } else {
-            res.status(201).json({message: "Workexperience deleted!"});
+            res.status(200).json({message: "Workexperience deleted!"});
         }
     }); 
 });

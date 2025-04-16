@@ -32,13 +32,26 @@ dbClient.query(`
     startdate DATE NOT NULL,
     enddate DATE NOT NULL,
     description TEXT NOT NULL
-    );`, (error, results) => {
-        if (error) throw error;
+    );`, (error) => {
+        if (error) {
+            console.error("Fel när tabell skapas", error);
+            dbClient.end();
+            return;
+        }
         console.log('Tabellen är skapad')
+
+        //lägger in test-data
+    dbClient.query('INSERT INTO workexperience (companyname, jobtitle, location, startdate, enddate, description) VALUES ($1, $2, $3, $4, $5, $6)',
+        ["Stora Coop", "Deli-disk", "Kalix", '2016-05-20', '2020-08-30', "Sålde chark, ost och färdig mat från delikatessdisken"],
+        (error) => {
+            if (error) {
+                console.error("Fel vid inmatning..", error);
+            } else {
+                console.log("Ny erfarenhet lagt till!");
+            }
     }
 );
+});
 
-//lägger in data
-
-
+//exporterar dbClient till server.js filen
 module.exports = dbClient;
