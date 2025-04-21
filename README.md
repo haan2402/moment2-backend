@@ -1,12 +1,12 @@
 # Del 1 Moment 2
 Denna del av uppgiften består av att skapa REST-webbtjänst som hanterar data om arbetserfarenheter. 
-Den är bygg med hjälp av Express, Node.js och använt PostgreSQL-databas.
+Den är byggd med hjälp av Express, Node.js och använt PostgreSQL-databas.
 
 ## Länk till API
 APIet finns på denna URL: [http://localhost:3000/workexperience]
 
 ## Installation, databas
-APIet använder en PostgreSQL databas. För att hämta källkoden kör man först npm install för de nödvändiga npm-paketen. Install.js är installations-skript.
+APIet använder en PostgreSQL databas. För att hämta källkoden kör man först npm install för de nödvändiga npm-paketen. Install.js är installations-skript. Och för att starta igång kör man node server.js så går det att koppla sig till databasen.
 Skriptet skapar databastabeller som ser ut som nedan:
 
 | Fält              | Datatyp       |
