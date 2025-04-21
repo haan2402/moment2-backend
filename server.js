@@ -6,8 +6,14 @@ require('dotenv').config();
 const app = express();  //instans express
 const port = process.env.PORT || 3000; //port
 
-app.use(cors()); //för att aktivera cors
 app.use(express.json()); //tolkar JSON
+
+//aktiverar cors
+app.use(cors({
+    origin: ['http://localhost:3000', 'http://localhost:1234'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+}));
 
 //skapar routing med get
 app.get("/workexperience", (req, res) => {
