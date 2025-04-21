@@ -9,10 +9,9 @@ APIet finns på denna URL: [http://localhost:3000/workexperience]
 APIet använder en PostgreSQL databas. För att hämta källkoden kör man först npm install för de nödvändiga npm-paketen. Install.js är installations-skript.
 Skriptet skapar databastabeller som ser ut som nedan:
 
-|workexperience|
 | Fält              | Datatyp       |
 |-------------------|---------------|
-|**id**             | serial(int)   |
+|**id**             | SERIAL(INT)   |
 |**companyname**    | VARCHAR(200)  |
 |**jobtitle**       | VARCHAR(200)  |
 |**location**       | VARCHAR(200)  |
